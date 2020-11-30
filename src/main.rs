@@ -7,6 +7,7 @@ use std::error::Error;
 use util::cli::Args;
 
 fn main() {
+    println!("Starting main");
     run().unwrap_or_else(|err| {
         eprintln!("\n{}", err);
         std::process::exit(1);
@@ -16,6 +17,7 @@ fn main() {
 fn run() -> Result<(), Box<dyn Error>> {
     env_logger::init();
 
+    println!("Parsing CLI");
     let args = util::cli::parse();
 
     let emphasized = Style::new().white().bold();
@@ -36,7 +38,10 @@ fn run() -> Result<(), Box<dyn Error>> {
             let (path_type, bundle_id) =
                 util::input_path::path_info(&input_path, override_path_type)?;
 
+            println!("Running Precheck");
             precheck::run(&input_path, &path_type, false)?;
+
+            println!("Running notarize");
             notarize::run(
                 input_path,
                 path_type,
