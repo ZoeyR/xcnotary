@@ -33,3 +33,5 @@ doc = false
 [dev-dependencies]
 assert_cmd = "1.0"
 predicates = "1.0"
+
+[workspace]
